@@ -5,7 +5,12 @@ $obj = json_decode($json, TRUE);
 $_POST = $obj;
 
 if (!empty($_POST)) {
-	var_dump($_POST);
+	$arr = [
+	    'success' => true,
+	    'message' => 'data recieved',
+	    'data' => $_POST
+	];
+	echo json_encode($arr);
 } else {
 	echo 'No POST data found';
 }
