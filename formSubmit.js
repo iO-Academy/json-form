@@ -35,14 +35,14 @@ const formToObject = elements => [].reduce.call(elements, (data, element) => {
 
 }, {});
 
-const sendData = (data) => {
+const getData = (formData) => {
     const root = 'http://json-form.test/';
     let uri = root + '';
     let options = {
         method: 'post',
         mode: 'same-origin',
         credentials: 'same-origin',
-        body: JSON.stringify(data, null, "  "), 
+        body: formData, 
     }
 
     let request = new Request(uri, options);
@@ -55,8 +55,10 @@ const sendData = (data) => {
                 throw new Error('Bad HTTP');
             }
         })
-        .then((j) => {
-            console.log(j);
+        .then((reponse) => {
+            console.log(response);
+            console.log(request);
+            console.log(formData);
         })
         .catch((error) => {
             console.log('ERROR:' + error.message)
@@ -70,12 +72,21 @@ function handleFormSubmit(event) {
     //Call the function to get the form data & store in a new object.
     const data = formToObject(form.elements);
 
+    const formData = JSON.stringify(data, null, "  ");
+
     //console.log(formData);
-    sendData(data);
+    getData(formData);
+
+    //TO DO: add polyfill for fetch api in IE
 };
   
 //Attach the `handleFormSubmit()` function to the `submit` event
 form.addEventListener('submit', handleFormSubmit);;
+
+
+
+
+
 
 
 
