@@ -35,47 +35,43 @@ const formToObject = elements => [].reduce.call(elements, (data, element) => {
 
 }, {});
 
-const getData = (formData) => {
+const postRequest = (data) => {
+    //To do - consider clone() the data before sending the request?
     const root = 'http://json-form.test/';
-    let uri = root + '';
+    let uri = root + 'post.php';
     let options = {
         method: 'post',
         mode: 'same-origin',
         credentials: 'same-origin',
-        body: formData, 
+        body: JSON.stringify(data, null, "  "),
+        redirect: 'follow', 
     }
 
     let request = new Request(uri, options);
 
     fetch(request)
         .then((response) => {
-            if(response.ok){
-                return response;
-            }else{
-                throw new Error('Bad HTTP');
+            if(!response.ok){
+                throw new Error(response.statusText);
             }
-        })
-        .then((reponse) => {
             console.log(response);
-            console.log(request);
-            console.log(formData);
         })
         .catch((error) => {
             console.log('ERROR:' + error.message)
         });
 }
 
-function handleFormSubmit(event) {
+
+
+function handleFormSubmit(e) {
     // Stop the form from submitting since we’re handling that with AJAX
-    event.preventDefault();
+    e.preventDefault();
 
     //Call the function to get the form data & store in a new object.
     const data = formToObject(form.elements);
 
-    const formData = JSON.stringify(data, null, "  ");
-
-    //console.log(formData);
-    getData(formData);
+    //call the function to post the request
+    postRequest(data);
 
     //TO DO: add polyfill for fetch api in IE
 };
