@@ -22,7 +22,7 @@ const formToObject = elements => [].reduce.call(elements, (data, element) => {
 
     // Make sure the element has the required properties and should be added.
     if (isValidElement(element) && isValidValue(element)) {
-        //Some fields allow for more than one value, so we need to check if this is one of those fields and, if so, store the values as an array.
+        //Some fields allow for more than one value, so this will check if this is one of those fields and if so, store the values as an array.
         if (isCheckbox(element)) {
           
           data[element.name] = (data[element.name] || []).concat(element.value);
@@ -36,9 +36,11 @@ const formToObject = elements => [].reduce.call(elements, (data, element) => {
 }, {});
 
 const postRequest = (data) => {
-    //To do - consider clone() the data before sending the request?
+    //set the root + uri where will we post the data
     const root = 'http://json-form.test/';
     let uri = root + 'post.php';
+    
+    //set options for the request
     let options = {
         method: 'post',
         mode: 'same-origin',
@@ -47,8 +49,10 @@ const postRequest = (data) => {
         redirect: 'follow', 
     }
 
+    //attach the uri + options to the request
     let request = new Request(uri, options);
 
+    //initiate the fetch request and log either the response or catch the error
     fetch(request)
         .then((response) => {
             if(!response.ok){
