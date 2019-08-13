@@ -3,7 +3,7 @@
 if (!empty($_POST)) {
 	$arr = [
 	    'success' => true,
-	    'message' => 'data recieved',
+	    'message' => 'data received',
 	    'data' => $_POST
 	];
 	echo json_encode($arr);
