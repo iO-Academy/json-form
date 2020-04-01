@@ -1,0 +1,24 @@
+{
+	"data": [{
+			"name": "Sam",
+			"age": 32,
+			"score": 84
+		},
+		{
+			"name": "Sarah",
+			"age": 24,
+			"score": 52
+		},
+		{
+			"name": "Anabelle",
+			"age": 53,
+			"score": 98
+		},
+		{
+			"name": "Mike",
+			"age": 18,
+			"score": 74
+		}
+	],
+	"success": true
+}
