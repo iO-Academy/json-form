@@ -2,21 +2,6 @@ document.querySelector('form').addEventListener('submit', e => {
 
     e.preventDefault()
 
-
-    // option 1
-    // const data = {
-    //     name: document.querySelector('[name="name"]').value,
-    //     petName: document.querySelector('[name="petName"]').value,
-    //     favColor: document.querySelector('[name="favColour"]').value,
-    //     favCar: document.querySelector('[name="favCar"]').value,
-    //     goldenEye: document.querySelector('[name="goldeneye"]').value,
-    //     heardAbout: document.querySelector('[name="marketing"]').value,
-    //     email: document.querySelector('[name="email"]').value,
-    //     recieveEmails: document.querySelector('[name="receiveEmails"]').checked,
-    //     mario: document.querySelector('[name="marioKart"]').checked
-    // }
-
-    // option 2
     const data = {}
     document.querySelectorAll('input, select').forEach((field) => {
         if (field.type === 'checkbox') {
@@ -28,7 +13,16 @@ document.querySelector('form').addEventListener('submit', e => {
         }
     })
 
-    console.log(JSON.stringify(data));
+    const jsonData = JSON.stringify(data);
+
+    fetch('post.php', {
+        method: 'POST',
+        body: jsonData
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
 
 
 })
